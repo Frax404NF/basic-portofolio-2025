@@ -137,30 +137,16 @@ function initNavbarScroll() {
   
   if (navbar) {
     function updateNavbar() {
-      const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
-      
       if (window.scrollY > 50) {
-        if (isDarkMode) {
-          navbar.style.background = 'rgba(15, 23, 42, 0.98)';
-          navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.4)';
-        } else {
-          navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-          navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-        }
+        navbar.classList.add('scrolled');
       } else {
-        if (isDarkMode) {
-          navbar.style.background = 'rgba(15, 23, 42, 0.95)';
-          navbar.style.boxShadow = 'none';
-        } else {
-          navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-          navbar.style.boxShadow = 'none';
-        }
+        navbar.classList.remove('scrolled');
       }
     }
     
     window.addEventListener('scroll', throttle(updateNavbar, 100));
     
-    // Initial call to set correct background
+    // Initial call to set correct state
     updateNavbar();
   }
 }
@@ -220,15 +206,18 @@ function showNotification(message, type = 'info') {
   }, 5000);
 }
 
-// Intersection Observer for animations
+// Enhanced Intersection Observer for animations
 function initScrollAnimations() {
-  const animatedElements = document.querySelectorAll('.skill-category, .project-card, .contact-item, .about-text, .hero-text, .timeline-item');
+  const animatedElements = document.querySelectorAll('.skill-category, .contact-item, .about-text, .hero-text');
+  const projectCards = document.querySelectorAll('.project-card');
+  const timelineItems = document.querySelectorAll('.timeline-item');
   
   const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
   };
   
+  // General animations (excluding timeline items)
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -238,10 +227,76 @@ function initScrollAnimations() {
     });
   }, observerOptions);
   
+  // Project cards with clean bidirectional animation
+  const projectObserver = new IntersectionObserver((entries) => {
+    // Sort entries by their position to maintain consistent animation order
+    const sortedEntries = entries.sort((a, b) => {
+      const aRect = a.target.getBoundingClientRect();
+      const bRect = b.target.getBoundingClientRect();
+      return aRect.top - bRect.top;
+    });
+    
+    sortedEntries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        // Clean show animation with shorter, consistent delays
+        setTimeout(() => {
+          entry.target.classList.remove('hidden');
+          entry.target.classList.add('visible');
+        }, index * 150); // Consistent 150ms delay
+      } else {
+        // Immediate hide when scrolling away (no staggering for cleaner effect)
+        entry.target.classList.remove('visible');
+        entry.target.classList.add('hidden');
+      }
+    });
+  }, {
+    threshold: 0.15, // Slightly higher threshold for more precise triggering
+    rootMargin: '0px 0px -50px 0px' // Reduced margin for cleaner timing
+  });
+  
   animatedElements.forEach(element => {
     element.style.opacity = '0';
     element.style.transform = 'translateY(30px)';
     observer.observe(element);
+  });
+  
+  // Timeline items with clean bidirectional animation
+  const timelineObserver = new IntersectionObserver((entries) => {
+    // Sort entries by their position to maintain consistent animation order
+    const sortedEntries = entries.sort((a, b) => {
+      const aRect = a.target.getBoundingClientRect();
+      const bRect = b.target.getBoundingClientRect();
+      return aRect.top - bRect.top;
+    });
+    
+    sortedEntries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        // Clean show animation with shorter, consistent delays
+        setTimeout(() => {
+          entry.target.classList.remove('timeline-hidden');
+          entry.target.classList.add('timeline-visible');
+        }, index * 120); // Slightly faster delay for timeline
+      } else {
+        // Immediate hide when scrolling away
+        entry.target.classList.remove('timeline-visible');
+        entry.target.classList.add('timeline-hidden');
+      }
+    });
+  }, {
+    threshold: 0.2, // Higher threshold for timeline items
+    rootMargin: '0px 0px -80px 0px'
+  });
+  
+  // Initialize project cards with hidden state
+  projectCards.forEach(card => {
+    card.classList.add('hidden');
+    projectObserver.observe(card);
+  });
+  
+  // Initialize timeline items with hidden state
+  timelineItems.forEach(item => {
+    item.classList.add('timeline-hidden');
+    timelineObserver.observe(item);
   });
 }
 
@@ -327,10 +382,7 @@ function initThemeToggle() {
   document.documentElement.setAttribute('data-theme', savedTheme);
   updateThemeIcon(savedTheme);
   
-  // Set initial navbar background
-  setTimeout(() => {
-    updateNavbarForTheme();
-  }, 100);
+  // No need to manually update navbar - CSS handles it
   
   // Add event listener to theme toggle button
   if (themeToggle) {
@@ -338,13 +390,12 @@ function initThemeToggle() {
       const currentTheme = document.documentElement.getAttribute('data-theme');
       const newTheme = currentTheme === 'light' ? 'dark' : 'light';
       
-      // Update theme
+      // Update theme with smooth transition
       document.documentElement.setAttribute('data-theme', newTheme);
       localStorage.setItem('theme', newTheme);
       updateThemeIcon(newTheme);
       
-      // Update navbar background for new theme
-      updateNavbarForTheme();
+      // CSS handles navbar background automatically
       
       // Add a subtle animation effect
       themeToggle.style.transform = 'scale(0.9)';
@@ -366,31 +417,7 @@ function updateThemeIcon(theme) {
   }
 }
 
-// Update navbar background for theme changes
-function updateNavbarForTheme() {
-  const navbar = document.querySelector('.navbar');
-  if (navbar) {
-    const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
-    
-    if (window.scrollY > 50) {
-      if (isDarkMode) {
-        navbar.style.background = 'rgba(15, 23, 42, 0.98)';
-        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.4)';
-      } else {
-        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-      }
-    } else {
-      if (isDarkMode) {
-        navbar.style.background = 'rgba(15, 23, 42, 0.95)';
-        navbar.style.boxShadow = 'none';
-      } else {
-        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-        navbar.style.boxShadow = 'none';
-      }
-    }
-  }
-}
+// Navbar styling is now fully handled by CSS classes and data-theme attribute
 
 // Project Filtering Functionality
 function initProjectFiltering() {
@@ -448,7 +475,45 @@ document.addEventListener('DOMContentLoaded', () => {
   initProjectFiltering();
   initScrollAnimations();
   initTypingAnimation();
+  initEmailButton();
 });
+
+// Email button functionality
+function initEmailButton() {
+  const emailButton = document.querySelector('a[href^="mailto:"]');
+  
+  if (emailButton) {
+    emailButton.addEventListener('click', function(e) {
+      const email = this.getAttribute('href');
+      
+      // For browsers that might not support mailto properly
+      if (!email || !email.startsWith('mailto:')) {
+        e.preventDefault();
+        alert('Please send an email to: frandicollage21@gmail.com');
+        return;
+      }
+      
+      // Try to open default email client
+      try {
+        window.location.href = email;
+      } catch (error) {
+        // Fallback: copy email to clipboard if possible
+        e.preventDefault();
+        const emailAddress = email.replace('mailto:', '');
+        
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(emailAddress).then(() => {
+            alert(`Email address copied to clipboard: ${emailAddress}`);
+          }).catch(() => {
+            alert(`Please send an email to: ${emailAddress}`);
+          });
+        } else {
+          alert(`Please send an email to: ${emailAddress}`);
+        }
+      }
+    });
+  }
+}
 
 // Handle window resize
 window.addEventListener('resize', debounce(() => {
@@ -469,9 +534,8 @@ document.body.classList.add('loaded');
 function preloadImages() {
   const criticalImages = [
     'image/foto_penulis.jpg',
-    'image/developer.jpg',
-    'image/front-end-pic.jpg',
-    'image/back-end-pic.jpg'
+    'image/back-end-pic.jpg',
+    'image/about_me.jpg'
   ];
   
   criticalImages.forEach(src => {
@@ -510,7 +574,7 @@ function initPageLoader() {
   }
 }
 
-// Lazy loading for images
+// Enhanced lazy loading for images
 function initLazyLoading() {
   const lazyImages = document.querySelectorAll('img[loading="lazy"]');
   
@@ -519,32 +583,53 @@ function initLazyLoading() {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const img = entry.target;
+          const originalSrc = img.getAttribute('src');
           
           // Add loading placeholder
           img.classList.add('image-placeholder');
           
-          img.onload = () => {
+          // Create new image to preload
+          const imageLoader = new Image();
+          imageLoader.onload = () => {
+            img.src = imageLoader.src;
             img.classList.remove('image-placeholder');
             img.classList.add('loaded');
+            img.style.opacity = '1';
           };
           
-          img.onerror = () => {
+          imageLoader.onerror = () => {
+            console.warn(`Failed to load image: ${originalSrc}`);
             img.classList.remove('image-placeholder');
-            // You could add an error placeholder here
+            // Fallback to placeholder
+            img.src = 'image/placeholder.jpg';
+            img.classList.add('loaded');
+            img.style.opacity = '1';
           };
+          
+          // Start loading
+          imageLoader.src = originalSrc;
           
           // Stop observing this image
           imageObserver.unobserve(img);
         }
       });
     }, {
-      rootMargin: '50px 0px'
+      rootMargin: '200px 0px', // Increased margin for earlier loading
+      threshold: 0.01 // Lower threshold for more aggressive loading
     });
     
-    lazyImages.forEach(img => imageObserver.observe(img));
+    lazyImages.forEach(img => {
+      // Set initial opacity for smooth transition
+      img.style.opacity = '0';
+      img.style.transition = 'opacity 0.5s ease-in-out';
+      imageObserver.observe(img);
+    });
   } else {
     // Fallback for browsers without IntersectionObserver
-    lazyImages.forEach(img => img.classList.add('loaded'));
+    lazyImages.forEach(img => {
+      img.classList.add('loaded');
+      img.style.opacity = '1';
+    });
   }
 }
 

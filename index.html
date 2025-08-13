@@ -11,7 +11,10 @@
     <meta name="keywords" content="Full Stack Developer, Web Development, Computer Science, Frontend, Backend, Node.js, JavaScript" />
     <title>Frandi Andika - Full Stack Developer</title>
     <link rel="stylesheet" href="css/index.css" />
-    <link rel="icon" href="image/foto_penulis.jpg" type="image/x-icon" />
+    <!-- Favicon -->
+    <link rel="icon" href="image/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="image/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="image/foto_penulis.jpg">
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -98,11 +101,11 @@
               </p>
               <p>
                 When I'm not coding, you'll find me reading self-development books, hiking, or trail 
-                running. I have dreams of conquering Mount Rinjani, Mount Raung, and visiting Ranu Kumbolo.
+                running. I have dreams of visiting Mount Rinjani, Mount Raung, and visiting Ranu Kumbolo.
               </p>
               <div class="about-stats">
                 <div class="stat">
-                  <span class="stat-number">2+</span>
+                  <span class="stat-number">4+</span>
                   <span class="stat-label">Years Learning</span>
                 </div>
                 <div class="stat">
@@ -110,7 +113,7 @@
                   <span class="stat-label">Projects Completed</span>
                 </div>
                 <div class="stat">
-                  <span class="stat-number">5+</span>
+                  <span class="stat-number">10+</span>
                   <span class="stat-label">Technologies</span>
                 </div>
               </div>
@@ -449,14 +452,143 @@
           </div>
 
           <div class="projects-grid">
-            <!-- Portfolio Website -->
-            <div class="project-card" data-category="frontend">
+            <!-- Asclepius Cancer Detection API -->
+            <div class="project-card" data-category="backend">
               <div class="project-image">
-                <img src="image/front-end-pic.jpg" alt="Portfolio Website" loading="lazy">
+                <img src="image/asclepius-project.png" alt="Asclepius Cancer Detection" loading="lazy">
                 <div class="project-overlay">
                   <div class="project-links">
-                    <a href="#" class="project-link" title="View Live Demo">
-                      <i class="fas fa-external-link-alt"></i>
+                    <a href="https://github.com/Frax404NF/Asclepius-dicoding-project/blob/master/docs/docs-API.md" class="project-link" title="API Documentation" target="_blank">
+                      <i class="fas fa-book"></i>
+                    </a>
+                    <a href="https://github.com/Frax404NF/Asclepius-dicoding-project" class="project-link" title="View Code" target="_blank">
+                      <i class="fab fa-github"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="project-content">
+                <div class="project-header">
+                  <h3>Asclepius Cancer Detection API</h3>
+                </div>
+                <p class="project-description">
+                  Machine learning API for skin cancer detection using Google Cloud Platform. Features image 
+                  upload, ML prediction processing, history tracking, and personalized health suggestions.
+                </p>
+                <div class="project-details">
+                  <div class="project-timeline">
+                    <i class="fas fa-calendar"></i>
+                    <span>Dicoding ML</span>
+                  </div>
+                  <div class="project-duration">
+                    <i class="fas fa-cloud"></i>
+                    <span>Google Cloud Platform</span>
+                  </div>
+                </div>
+                <div class="project-tech">
+                  <span class="tech-tag">Google Cloud</span>
+                  <span class="tech-tag">Machine Learning</span>
+                  <span class="tech-tag">Cloud Run</span>
+                  <span class="tech-tag">Firestore</span>
+                  <span class="tech-tag">API</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Driver Monitoring System -->
+            <div class="project-card" data-category="fullstack">
+              <div class="project-image">
+                <img src="image/dms.png" alt="Driver Monitoring System" loading="lazy">
+                <div class="project-overlay">
+                  <div class="project-links">
+                    <a href="https://www.linkedin.com/posts/frandi-andika_c241-ms02-activity-7214292277932802048-HNmu" class="project-link" title="View Details" target="_blank">
+                      <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/Frax404NF" class="project-link" title="View Profile" target="_blank">
+                      <i class="fab fa-github"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="project-content">
+                <div class="project-header">
+                  <h3>Driver Monitoring System (DMS)</h3>
+                </div>
+                <p class="project-description">
+                  IoT-based system tackling driver drowsiness using computer vision and external sensors. 
+                  Features real-time dashboard, facial detection, and cloud deployment addressing Indonesia's 
+                  traffic safety challenges.
+                </p>
+                <div class="project-details">
+                  <div class="project-timeline">
+                    <i class="fas fa-calendar"></i>
+                    <span>Bangkit 2024</span>
+                  </div>
+                  <div class="project-duration">
+                    <i class="fas fa-users"></i>
+                    <span>6-person team</span>
+                  </div>
+                </div>
+                <div class="project-tech">
+                  <span class="tech-tag">React</span>
+                  <span class="tech-tag">Google Cloud</span>
+                  <span class="tech-tag">ESP32 CAM</span>
+                  <span class="tech-tag">Machine Learning</span>
+                  <span class="tech-tag">IoT</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bookshelf API -->
+            <div class="project-card" data-category="backend">
+              <div class="project-image">
+                <img src="image/back-end-pic.jpg" alt="Bookshelf API" loading="lazy">
+                <div class="project-overlay">
+                  <div class="project-links">
+                    <a href="#" class="project-link" title="API Documentation">
+                      <i class="fas fa-book"></i>
+                    </a>
+                    <a href="https://github.com/Frax404NF/Bookshelf-API-Fixed" class="project-link" title="View Code" target="_blank">
+                      <i class="fab fa-github"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="project-content">
+                <div class="project-header">
+                  <h3>Bookshelf API</h3>
+                </div>
+                <p class="project-description">
+                  RESTful API for bookshelf management with full CRUD operations. Features book validation, 
+                  reading status tracking, and comprehensive endpoint coverage for book management systems.
+                </p>
+                <div class="project-details">
+                  <div class="project-timeline">
+                    <i class="fas fa-calendar"></i>
+                    <span>Dicoding Project</span>
+                  </div>
+                  <div class="project-duration">
+                    <i class="fas fa-server"></i>
+                    <span>Backend Focus</span>
+                  </div>
+                </div>
+                <div class="project-tech">
+                  <span class="tech-tag">Node.js</span>
+                  <span class="tech-tag">JavaScript</span>
+                  <span class="tech-tag">REST API</span>
+                  <span class="tech-tag">CRUD</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- URL Analytics Project -->
+            <div class="project-card" data-category="fullstack">
+              <div class="project-image">
+                <img src="image/url-analytics.png" alt="URL Analytics Project" loading="lazy">
+                <div class="project-overlay">
+                  <div class="project-links">
+                    <a href="https://www.linkedin.com/posts/frandi-andika_url-analytics-project-activity-7246383976804720640-BfCW" class="project-link" title="View Details" target="_blank">
+                      <i class="fab fa-linkedin-in"></i>
                     </a>
                     <a href="https://github.com/Frax404NF" class="project-link" title="View Code" target="_blank">
                       <i class="fab fa-github"></i>
@@ -466,42 +598,84 @@
               </div>
               <div class="project-content">
                 <div class="project-header">
-                  <h3>Professional Portfolio</h3>
+                  <h3>URL Analytics Platform</h3>
                 </div>
                 <p class="project-description">
-                  A modern, responsive portfolio website featuring dark/light mode toggle, 
-                  smooth animations, and optimal performance. Built with vanilla JavaScript 
-                  and modern CSS techniques.
+                  Web application for analyzing user behavior with shortened URLs. Features URL shortening, 
+                  QR code generation, and comprehensive analytics tracking for business insights.
                 </p>
                 <div class="project-details">
                   <div class="project-timeline">
                     <i class="fas fa-calendar"></i>
-                    <span>January 2025</span>
+                    <span>Braincore.id</span>
                   </div>
                   <div class="project-duration">
-                    <i class="fas fa-clock"></i>
-                    <span>2 weeks</span>
+                    <i class="fas fa-user"></i>
+                    <span>Front-end Dev</span>
+                  </div>
+                </div>
+                <div class="project-tech">
+                  <span class="tech-tag">Flask</span>
+                  <span class="tech-tag">Tailwind</span>
+                  <span class="tech-tag">MySQL</span>
+                  <span class="tech-tag">SweetAlert</span>
+                  <span class="tech-tag">Jinja</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bakoding Website -->
+            <div class="project-card" data-category="frontend">
+              <div class="project-image">
+                <img src="image/back-end-pic.jpg" alt="Bakoding Website" loading="lazy">
+                <div class="project-overlay">
+                  <div class="project-links">
+                    <a href="https://bakoding.vercel.app/" class="project-link" title="View Live Demo" target="_blank">
+                      <i class="fas fa-external-link-alt"></i>
+                    </a>
+                    <a href="https://github.com/Frax404NF/Belajar-Dasar-Pemrograman-Web-Submission" class="project-link" title="View Code" target="_blank">
+                      <i class="fab fa-github"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="project-content">
+                <div class="project-header">
+                  <h3>Bakoding Website</h3>
+                </div>
+                <p class="project-description">
+                  Responsive website demonstrating fundamental web development skills. Features clean HTML5
+                  structure, modern CSS styling, and JavaScript functionality with mobile-optimized design.
+                </p>
+                <div class="project-details">
+                  <div class="project-timeline">
+                    <i class="fas fa-calendar"></i>
+                    <span>Dicoding Project</span>
+                  </div>
+                  <div class="project-duration">
+                    <i class="fas fa-globe"></i>
+                    <span>Live on Vercel</span>
                   </div>
                 </div>
                 <div class="project-tech">
                   <span class="tech-tag">HTML5</span>
                   <span class="tech-tag">CSS3</span>
                   <span class="tech-tag">JavaScript</span>
-                  <span class="tech-tag">Responsive Design</span>
+                  <span class="tech-tag">Responsive</span>
                 </div>
               </div>
             </div>
 
-            <!-- E-Commerce Platform -->
-            <div class="project-card" data-category="fullstack">
+            <!-- React Jobs Platform -->
+            <div class="project-card" data-category="frontend">
               <div class="project-image">
-                <img src="image/back-end-pic.jpg" alt="E-Commerce Platform" loading="lazy">
+                <img src="https://github.com/user-attachments/assets/bfc9bad2-8a90-4b7a-8587-4b73e13d54d3" alt="React Jobs" loading="lazy">
                 <div class="project-overlay">
                   <div class="project-links">
                     <a href="#" class="project-link" title="View Live Demo">
                       <i class="fas fa-external-link-alt"></i>
                     </a>
-                    <a href="https://github.com/Frax404NF" class="project-link" title="View Code" target="_blank">
+                    <a href="https://github.com/Frax404NF/React-Jobs" class="project-link" title="View Code" target="_blank">
                       <i class="fab fa-github"></i>
                     </a>
                   </div>
@@ -509,116 +683,28 @@
               </div>
               <div class="project-content">
                 <div class="project-header">
-                  <h3>E-Commerce Platform</h3>
+                  <h3>React Jobs Platform</h3>
                 </div>
                 <p class="project-description">
-                  A full-stack e-commerce solution with user authentication, product management, 
-                  shopping cart functionality, and secure payment processing. Features admin 
-                  dashboard and order tracking.
+                  Modern job listing web application built with React. Features job browsing, 
+                  detailed job descriptions, and job posting functionality with responsive design 
+                  and modern UI components.
                 </p>
                 <div class="project-details">
                   <div class="project-timeline">
                     <i class="fas fa-calendar"></i>
-                    <span>December 2024</span>
+                    <span>2024</span>
                   </div>
                   <div class="project-duration">
-                    <i class="fas fa-clock"></i>
-                    <span>6 weeks</span>
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Learning Project</span>
                   </div>
                 </div>
                 <div class="project-tech">
                   <span class="tech-tag">React</span>
-                  <span class="tech-tag">Node.js</span>
-                  <span class="tech-tag">Express</span>
-                  <span class="tech-tag">MongoDB</span>
-                  <span class="tech-tag">JWT</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Learning Management System -->
-            <div class="project-card" data-category="fullstack">
-              <div class="project-image">
-                <img src="image/developer.jpg" alt="Learning Management System" loading="lazy">
-                <div class="project-overlay">
-                  <div class="project-links">
-                    <a href="#" class="project-link" title="View Live Demo">
-                      <i class="fas fa-external-link-alt"></i>
-                    </a>
-                    <a href="https://github.com/Frax404NF" class="project-link" title="View Code" target="_blank">
-                      <i class="fab fa-github"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div class="project-content">
-                <div class="project-header">
-                  <h3>CodeLearn Platform</h3>
-                </div>
-                <p class="project-description">
-                  An interactive learning management system for programming courses. 
-                  Features include video lessons, code challenges, progress tracking, 
-                  and instructor dashboard with analytics.
-                </p>
-                <div class="project-details">
-                  <div class="project-timeline">
-                    <i class="fas fa-calendar"></i>
-                    <span>October 2024</span>
-                  </div>
-                  <div class="project-duration">
-                    <i class="fas fa-clock"></i>
-                    <span>8 weeks</span>
-                  </div>
-                </div>
-                <div class="project-tech">
-                  <span class="tech-tag">Python</span>
-                  <span class="tech-tag">Django</span>
-                  <span class="tech-tag">PostgreSQL</span>
-                  <span class="tech-tag">Redis</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Task Management API -->
-            <div class="project-card" data-category="backend">
-              <div class="project-image">
-                <img src="image/back-end-pic.jpg" alt="Task Management API" loading="lazy">
-                <div class="project-overlay">
-                  <div class="project-links">
-                    <a href="#" class="project-link" title="API Documentation">
-                      <i class="fas fa-book"></i>
-                    </a>
-                    <a href="https://github.com/Frax404NF" class="project-link" title="View Code" target="_blank">
-                      <i class="fab fa-github"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div class="project-content">
-                <div class="project-header">
-                  <h3>TaskFlow API</h3>
-                </div>
-                <p class="project-description">
-                  A RESTful API for task management with user authentication, team collaboration, 
-                  real-time notifications, and comprehensive documentation. Built with clean 
-                  architecture principles.
-                </p>
-                <div class="project-details">
-                  <div class="project-timeline">
-                    <i class="fas fa-calendar"></i>
-                    <span>September 2024</span>
-                  </div>
-                  <div class="project-duration">
-                    <i class="fas fa-clock"></i>
-                    <span>4 weeks</span>
-                  </div>
-                </div>
-                <div class="project-tech">
-                  <span class="tech-tag">Node.js</span>
-                  <span class="tech-tag">Express</span>
-                  <span class="tech-tag">MongoDB</span>
-                  <span class="tech-tag">Socket.io</span>
-                  <span class="tech-tag">JWT</span>
+                  <span class="tech-tag">JavaScript</span>
+                  <span class="tech-tag">Tailwind CSS</span>
+                  <span class="tech-tag">Vite</span>
                 </div>
               </div>
             </div>
@@ -651,7 +737,8 @@
                   </div>
                   <div class="contact-details">
                     <h4>Location</h4>
-                    <p>Manado, North Sulawesi, Indonesia</p>
+                    <p>Manado, North Sulawesi, Indonesia<br>
+                    <span style="color: var(--primary-color); font-weight: 500;">Available for Remote Work</span></p>
                   </div>
                 </div>
               </div>
@@ -664,7 +751,7 @@
                   <i class="fab fa-linkedin-in"></i>
                   <span>LinkedIn</span>
                 </a>
-                <a href="mailto:frandi.andika@example.com" class="social-link-large" target="_blank" title="Email">
+                <a href="mailto:frandicollage21@gmail.com" class="social-link-large" title="Send Email">
                   <i class="fas fa-envelope"></i>
                   <span>Email</span>
                 </a>

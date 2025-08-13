@@ -129,11 +129,17 @@ img {
 
 img[loading="lazy"] {
   opacity: 0;
+  transition: opacity 0.5s ease;
 }
 
 img[loading="lazy"].loaded {
   opacity: 1;
 }
+
+/* Enhanced project card animations */
+/* Initial project card animation styles moved to main definition */
+
+/* All transition timing now handled by JavaScript for precise control */
 
 /* Performance optimization: will-change for animations */
 .project-card,
@@ -174,7 +180,12 @@ img[loading="lazy"].loaded {
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border-color);
   z-index: 1000;
-  transition: var(--transition);
+  transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.navbar.scrolled {
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
 }
 
 .nav-container {
@@ -265,8 +276,13 @@ img[loading="lazy"].loaded {
 /* Dark mode specific improvements */
 /* Navbar improvements - use blue color reference only */
 [data-theme="dark"] .navbar {
-  background: rgba(15, 23, 42, 0.98);
+  background: rgba(15, 23, 42, 0.95);
   border-bottom: 1px solid #475569;
+}
+
+[data-theme="dark"] .navbar.scrolled {
+  background: rgba(15, 23, 42, 0.98);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
 }
 
 [data-theme="dark"] .nav-link {
@@ -768,6 +784,9 @@ img[loading="lazy"].loaded {
   position: relative;
   margin-bottom: 4rem;
   width: 100%;
+  opacity: 0;
+  transform: translateX(-50px) scale(0.95);
+  transition: all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 .timeline-item:nth-child(odd) .timeline-content {
@@ -1111,26 +1130,66 @@ img[loading="lazy"].loaded {
   border-radius: var(--border-radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-md);
-  transition: var(--transition);
   border: 1px solid var(--border-color);
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  transition: all 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
-.project-card:hover {
-  transform: translateY(-8px);
+.project-card.visible:hover {
+  transform: translateY(-8px) scale(1.02);
   box-shadow: var(--shadow-xl);
 }
 
 .project-image {
   position: relative;
-  height: 200px;
+  height: 220px;
   overflow: hidden;
+  border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .project-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: var(--transition);
+  object-position: center;
+  transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+  border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+  filter: brightness(1) contrast(1.05) saturate(1.1);
+}
+
+.project-image img:hover {
+  filter: brightness(1.1) contrast(1.1) saturate(1.2);
+}
+
+.project-card:hover .project-image img {
+  transform: scale(1.05);
+}
+
+/* Enhanced image loading states */
+.project-image img.image-placeholder {
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Dark theme image container */
+[data-theme="dark"] .project-image {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .project-image img.image-placeholder {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
 }
 
 .project-overlay {
@@ -1240,17 +1299,35 @@ img[loading="lazy"].loaded {
   transform: scale(1.05);
 }
 
-/* Project card filtering animation */
+/* Clean project card scroll animation states */
 .project-card.hidden {
   opacity: 0;
-  transform: scale(0.8);
-  transition: var(--transition);
+  transform: translateY(30px) scale(0.95);
 }
 
 .project-card.visible {
   opacity: 1;
-  transform: scale(1);
-  transition: var(--transition);
+  transform: translateY(0) scale(1);
+}
+
+/* Timeline animation states */
+.timeline-item.timeline-hidden {
+  opacity: 0;
+  transform: translateX(-50px) scale(0.95);
+}
+
+.timeline-item.timeline-visible {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+/* Alternate animation direction for even timeline items */
+.timeline-item:nth-child(even).timeline-hidden {
+  transform: translateX(50px) scale(0.95);
+}
+
+.timeline-item:nth-child(even).timeline-visible {
+  transform: translateX(0) scale(1);
 }
 
 /* Contact Section */
@@ -1354,6 +1431,9 @@ img[loading="lazy"].loaded {
   font-weight: 500;
   min-width: 140px;
   justify-content: center;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
 }
 
 .social-link-large:hover {
@@ -1588,9 +1668,8 @@ footer {
 .about-text,
 .skill-category,
 .project-card,
-.contact-item,
-.timeline-item {
-  animation: fadeInUp 0.6s ease-out;
+.contact-item {
+  will-change: transform, opacity;
 }
 
 /* Scroll indicator */
