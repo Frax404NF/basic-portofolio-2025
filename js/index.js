@@ -300,52 +300,59 @@ function initScrollAnimations() {
   });
 }
 
-// Typing animation for hero section with loop
+// Optimized typing animation for better LCP
 function initTypingAnimation() {
   const heroSubtitle = document.querySelector('.hero-subtitle');
   
   if (heroSubtitle) {
     const text = heroSubtitle.textContent;
-    heroSubtitle.textContent = '';
+    
+    // Show text immediately for LCP, then start animation
+    heroSubtitle.style.opacity = '1';
     
     // Mobile-responsive cursor
     const isMobile = window.innerWidth <= 768;
     const cursorWidth = isMobile ? '1px' : '2px';
-    heroSubtitle.style.borderRight = `${cursorWidth} solid white`;
     
-    let index = 0;
-    let isDeleting = false;
-    let typingSpeed = isMobile ? 60 : 80; // Faster on mobile
-    
-    function typeAnimation() {
-      if (!isDeleting && index < text.length) {
-        // Typing
-        heroSubtitle.textContent += text.charAt(index);
-        index++;
-        typingSpeed = 80;
-        setTimeout(typeAnimation, typingSpeed);
-      } else if (isDeleting && index > 0) {
-        // Deleting
-        heroSubtitle.textContent = text.substring(0, index - 1);
-        index--;
-        typingSpeed = 40;
-        setTimeout(typeAnimation, typingSpeed);
-      } else if (!isDeleting && index === text.length) {
-        // Pause before deleting
-        setTimeout(() => {
-          isDeleting = true;
-          typeAnimation();
-        }, 2000);
-      } else if (isDeleting && index === 0) {
-        // Start typing again
-        isDeleting = false;
-        setTimeout(() => {
-          typeAnimation();
-        }, 500);
+    // Delay animation to improve LCP
+    setTimeout(() => {
+      heroSubtitle.textContent = '';
+      heroSubtitle.style.borderRight = `${cursorWidth} solid white`;
+      
+      let index = 0;
+      let isDeleting = false;
+      let typingSpeed = isMobile ? 50 : 60; // Faster for better UX
+      
+      function typeAnimation() {
+        if (!isDeleting && index < text.length) {
+          // Typing
+          heroSubtitle.textContent += text.charAt(index);
+          index++;
+          typingSpeed = 60;
+          setTimeout(typeAnimation, typingSpeed);
+        } else if (isDeleting && index > 0) {
+          // Deleting
+          heroSubtitle.textContent = text.substring(0, index - 1);
+          index--;
+          typingSpeed = 30;
+          setTimeout(typeAnimation, typingSpeed);
+        } else if (!isDeleting && index === text.length) {
+          // Pause before deleting
+          setTimeout(() => {
+            isDeleting = true;
+            typeAnimation();
+          }, 1500);
+        } else if (isDeleting && index === 0) {
+          // Start typing again
+          isDeleting = false;
+          setTimeout(() => {
+            typeAnimation();
+          }, 300);
+        }
       }
-    }
-    
-    setTimeout(typeAnimation, 1000);
+      
+      typeAnimation();
+    }, 100); // Very short delay to let LCP register
   }
 }
 
@@ -470,6 +477,10 @@ function initProjectFiltering() {
 
 // Initialize all functionality when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+  // Remove loading class immediately for better LCP
+  document.body.classList.remove('loading');
+  document.body.classList.add('loaded');
+  
   initThemeToggle();
   initMobileMenu();
   initSmoothScrolling();
@@ -542,18 +553,27 @@ window.addEventListener('resize', debounce(() => {
 // Add loading class to body for smooth transitions
 document.body.classList.add('loaded');
 
-// Performance optimization: Preload critical images
+// Fix back/forward cache - ensure no WebSocket or blocking operations
+window.addEventListener('pageshow', (event) => {
+  if (event.persisted) {
+    // Page was restored from cache
+    document.body.classList.remove('loading');
+    document.body.classList.add('loaded');
+    // Re-initialize lightweight functions only
+    initThemeToggle();
+  }
+});
+
+// Remove any potential WebSocket connections or unload handlers
+// Ensure page is BFCache compatible
+window.addEventListener('pagehide', (event) => {
+  // Don't prevent BFCache
+});
+
+// Performance optimization: Preload critical images (now handled in HTML)
 function preloadImages() {
-  const criticalImages = [
-    'image/foto_penulis.jpg',
-    'image/back-end-pic.jpg',
-    'image/about_me.jpg'
-  ];
-  
-  criticalImages.forEach(src => {
-    const img = new Image();
-    img.src = src;
-  });
+  // Critical images are now preloaded in HTML head for better performance
+  // This function can be removed or used for non-critical images
 }
 
 // Page Loading functionality

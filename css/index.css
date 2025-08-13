@@ -59,6 +59,7 @@ body {
   overflow-x: hidden;
   width: 100%;
   position: relative;
+  font-display: swap; /* Improve font loading performance */
 }
 
 /* Loading state */
@@ -628,6 +629,9 @@ img[loading="lazy"].loaded {
   object-fit: cover;
   border: 4px solid rgba(255, 255, 255, 0.2);
   box-shadow: var(--shadow-xl);
+  /* Force proper sizing to prevent oversized images */
+  max-width: 300px;
+  max-height: 300px;
 }
 
 /* Section Styles */
