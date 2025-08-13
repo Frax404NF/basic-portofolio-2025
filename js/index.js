@@ -307,11 +307,15 @@ function initTypingAnimation() {
   if (heroSubtitle) {
     const text = heroSubtitle.textContent;
     heroSubtitle.textContent = '';
-    heroSubtitle.style.borderRight = '2px solid white';
+    
+    // Mobile-responsive cursor
+    const isMobile = window.innerWidth <= 768;
+    const cursorWidth = isMobile ? '1px' : '2px';
+    heroSubtitle.style.borderRight = `${cursorWidth} solid white`;
     
     let index = 0;
     let isDeleting = false;
-    let typingSpeed = 80;
+    let typingSpeed = isMobile ? 60 : 80; // Faster on mobile
     
     function typeAnimation() {
       if (!isDeleting && index < text.length) {
@@ -524,6 +528,14 @@ window.addEventListener('resize', debounce(() => {
     if (hamburger) {
       hamburger.style.transform = 'rotate(0deg)';
     }
+  }
+  
+  // Update typing animation cursor for new screen size
+  const heroSubtitle = document.querySelector('.hero-subtitle');
+  if (heroSubtitle && heroSubtitle.style.borderRight) {
+    const isMobile = window.innerWidth <= 768;
+    const cursorWidth = isMobile ? '1px' : '2px';
+    heroSubtitle.style.borderRight = `${cursorWidth} solid white`;
   }
 }, 250));
 

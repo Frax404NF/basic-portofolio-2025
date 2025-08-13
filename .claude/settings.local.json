@@ -3,7 +3,8 @@
     "allow": [
       "WebFetch(domain:github.com)",
       "WebFetch(domain:www.linkedin.com)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(start chrome:*)"
     ],
     "deny": []
   }
