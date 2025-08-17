@@ -760,7 +760,8 @@ img[loading="lazy"].loaded {
 .skill-item:hover {
   background: var(--primary-color);
   color: white;
-  transform: scale(1.02);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-md);
 }
 
 .skill-item i {
